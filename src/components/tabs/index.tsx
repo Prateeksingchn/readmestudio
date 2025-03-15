@@ -15,7 +15,7 @@ type PrePlayerTabsProps = {
   id?: string;
   tabs: Tab[];
   currentTab: string;
-  setCurrentTab: (tab: any) => void;
+  setCurrentTab: (tab: string) => void;
 };
 
 const Tabs = ({
@@ -31,7 +31,7 @@ const Tabs = ({
   useEffect(() => {
     const { [id]: view } = router.query;
 
-    if (hasMatchWithSomeTab(view as string)) setCurrentTab(view);
+    if (hasMatchWithSomeTab(view as string)) setCurrentTab(view as string);
   }, [router]);
 
   return (

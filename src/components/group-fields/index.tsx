@@ -12,7 +12,7 @@ import * as S from './styles';
 
 type Conditions = {
   path: string;
-  be: any;
+  be: 'equal';
   value: unknown;
 };
 
@@ -30,6 +30,10 @@ type GroupFieldsProps = {
   label?: string;
   columns?: number;
   conditions?: Conditions;
+};
+
+type ObjectWithProps = {
+  props: Record<string, unknown>;
 };
 
 const GroupFields = ({
@@ -87,10 +91,9 @@ const GroupFields = ({
               ? checkDeepObjectValue({ obj, ...field.conditions })
               : true;
 
-            const defaultValue = getDeepObjectProperty<any>(
-              obj?.props,
-              field.path
-            );
+            const defaultValue = getDeepObjectProperty<
+              string | number | readonly string[] | undefined
+            >((obj as ObjectWithProps)?.props, field.path);
 
             return canRender ? (
               <S.Field

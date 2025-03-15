@@ -18,6 +18,7 @@ import {
 
 import { events } from 'app';
 import { ContextMenus } from 'types';
+import { SectionData } from 'types/section-data';
 
 import * as S from './styles';
 import { CanvasErrorFallback } from './error';
@@ -91,7 +92,7 @@ const Canvas = () => {
               onReorder={events.canvas.reorder}
             >
               {sections.map(({ type, id, props }) => {
-                const section = sectionsData[type] as any;
+                const section = sectionsData[type] as SectionData;
 
                 if (!section) return null;
 
