@@ -1,7 +1,7 @@
-import { CanvasTemplate } from 'templates';
+import { Landing } from 'components/landing';
 
 const Home = () => {
-  return <CanvasTemplate />;
+  return <Landing />;
 };
 
 export default Home;
