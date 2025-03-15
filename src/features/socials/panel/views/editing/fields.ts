@@ -1,6 +1,25 @@
 import { Inputs } from 'types';
 
-const fields = [
+type Field = {
+  type: Inputs;
+  path: string;
+  label: string;
+  props: Record<string, unknown>;
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
+type Group = {
+  id: number;
+  label?: string;
+  accordion?: boolean;
+  fields: Field[];
+};
+
+const fields: Group[] = [
   {
     id: 1,
     label: 'Section styles',
@@ -31,6 +50,7 @@ const fields = [
         type: Inputs.SWITCH,
         path: 'styles.clear',
         label: 'Clear float',
+        props: {},
       },
     ],
   },

@@ -1,5 +1,6 @@
 import { AnimateSharedLayout } from 'framer-motion';
 import { StyledIcon } from '@styled-icons/styled-icon';
+import { Dispatch, SetStateAction } from 'react';
 
 import * as S from './styles';
 import { useEffect } from 'react';
@@ -11,19 +12,19 @@ type Tab = {
   view: string;
 };
 
-type PrePlayerTabsProps = {
+type TabsProps<T extends string> = {
   id?: string;
   tabs: Tab[];
-  currentTab: string;
-  setCurrentTab: (tab: string) => void;
+  currentTab: T;
+  setCurrentTab: Dispatch<SetStateAction<T>>;
 };
 
-const Tabs = ({
+const Tabs = <T extends string>({
   id = 'tab',
   tabs,
   currentTab,
   setCurrentTab,
-}: PrePlayerTabsProps) => {
+}: TabsProps<T>) => {
   const router = useRouter();
   const hasMatchWithSomeTab = (view: string) =>
     tabs.some(tab => tab.view === view);
@@ -31,7 +32,7 @@ const Tabs = ({
   useEffect(() => {
     const { [id]: view } = router.query;
 
-    if (hasMatchWithSomeTab(view as string)) setCurrentTab(view as string);
+    if (hasMatchWithSomeTab(view as string)) setCurrentTab(view as T);
   }, [router]);
 
   return (
@@ -45,7 +46,7 @@ const Tabs = ({
               <S.Tab
                 key={view}
                 isActive={view === currentTab}
-                onClick={() => setCurrentTab(view)}
+                onClick={() => setCurrentTab(view as T)}
               >
                 <S.Wrapper>
                   {Icon && <Icon size={20} />}

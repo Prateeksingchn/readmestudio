@@ -1,6 +1,26 @@
 import { Inputs } from 'types';
 
-const groups = (path: string) => [
+type GroupField = {
+  type: Inputs;
+  path: string;
+  label: string;
+  props: Record<string, unknown>;
+};
+
+type Group = {
+  id: number;
+  label?: string;
+  accordion?: boolean;
+  columns?: number;
+  fields: GroupField[];
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
+const groups = (path: string): Group[] => [
   {
     id: 1,
     fields: [

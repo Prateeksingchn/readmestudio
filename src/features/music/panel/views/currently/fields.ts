@@ -1,6 +1,29 @@
 import { Inputs } from 'types';
 
-const first_group = [
+type Field = {
+  type: Inputs;
+  path: string;
+  label: string;
+  props: Record<string, unknown>;
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
+type Group = {
+  id: number;
+  columns?: number;
+  fields: Field[];
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
+const first_group: Group[] = [
   {
     id: 1,
     fields: [
@@ -25,7 +48,7 @@ const first_group = [
   },
 ];
 
-const second_group = [
+const second_group: Group[] = [
   {
     id: 1,
     fields: [

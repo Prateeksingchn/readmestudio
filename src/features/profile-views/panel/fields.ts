@@ -1,6 +1,29 @@
 import { color_names } from 'resources';
 import { Inputs } from 'types';
 
+type Field = {
+  type: Inputs;
+  path: string;
+  label: string;
+  props?: Record<string, unknown>;
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
+type Group = {
+  id: number;
+  label?: string;
+  fields: Field[];
+  conditions?: {
+    path: string;
+    be: 'equal';
+    value: string;
+  };
+};
+
 const colorOptions = [{ value: '', label: 'default' }].concat(
   Object.keys(color_names).map(name => ({
     value: name,
@@ -8,7 +31,7 @@ const colorOptions = [{ value: '', label: 'default' }].concat(
   }))
 );
 
-const groups = [
+const groups: Group[] = [
   {
     id: 1,
     fields: [
@@ -60,6 +83,7 @@ const groups = [
         type: Inputs.SWITCH,
         path: 'styles.clear',
         label: 'Clear float',
+        props: {},
       },
       {
         type: Inputs.SELECT,
